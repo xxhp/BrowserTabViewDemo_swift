@@ -16,7 +16,7 @@ class ViewController: UIViewController,BrowserTabViewDelegate {
         
 //        tabController= [[BrowserTabView alloc] initWithTabTitles:[NSArray arrayWithObjects:@"Tab 1",@"Tab 2",@"Tab 3", nil]
 //            andDelegate:self];
-        var tabController : BrowserTabView  = BrowserTabView(Titles:["1","2"] , Delegate:self);
+        var tabController : BrowserTabView  = BrowserTabView(Titles:["Tab 1","Tab 2","Tab 3","Tab 4","Tab 5"] , Delegate:self);
         self.view.addSubview(tabController);
          self.view.backgroundColor = UIColor.darkGrayColor();
     }
