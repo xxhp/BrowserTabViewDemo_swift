@@ -26,6 +26,7 @@
 		65A4B4751AB037020073211F /* BrowserTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4B4741AB037020073211F /* BrowserTabView.swift */; };
 		65C20A831AB5466200839753 /* tab_new_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C20A811AB5466200839753 /* tab_new_add.png */; };
 		65C20A841AB5466200839753 /* tab_new_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C20A821AB5466200839753 /* tab_new_add@2x.png */; };
+		65C20A861AB552C900839753 /* iOSScreenShot.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C20A851AB552C900839753 /* iOSScreenShot.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		65A4B4741AB037020073211F /* BrowserTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserTabView.swift; sourceTree = "<group>"; };
 		65C20A811AB5466200839753 /* tab_new_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_new_add.png; sourceTree = "<group>"; };
 		65C20A821AB5466200839753 /* tab_new_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_new_add@2x.png"; sourceTree = "<group>"; };
+		65C20A851AB552C900839753 /* iOSScreenShot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iOSScreenShot.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 		65A4B4451AB036920073211F = {
 			isa = PBXGroup;
 			children = (
+				65C20A851AB552C900839753 /* iOSScreenShot.png */,
 				6586DE411AB4856A00A280F2 /* README.md */,
 				65A4B4731AB036DF0073211F /* BrowerTabView */,
 				65A4B4501AB036920073211F /* BrowserTabView_Swift */,
@@ -258,6 +261,7 @@
 				65A4B45E1AB036920073211F /* LaunchScreen.xib in Resources */,
 				6586DE3E1AB470D200A280F2 /* tab_normal@2x.png in Resources */,
 				65A4B45B1AB036920073211F /* Images.xcassets in Resources */,
+				65C20A861AB552C900839753 /* iOSScreenShot.png in Resources */,
 				6586DE3A1AB470D200A280F2 /* tab_background@2x.png in Resources */,
 				6586DE391AB470D200A280F2 /* tab_background.png in Resources */,
 			);
