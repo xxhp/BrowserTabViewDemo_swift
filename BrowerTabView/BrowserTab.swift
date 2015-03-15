@@ -33,56 +33,37 @@
 import UIKit
 
 class BrowserTab: UIView {
-    var height = 38;
-    weak var browserTabView : BrowserTabView?;
-    
-    var normalTitleColor :UIColor?;
-    var selectedTitleColor :UIColor?;
-    var tabSelectedImage :UIImage?;
-    var tabNormalImage: UIImage?;
-    var titleFont :UIFont?;
-    var titleField :UITextField?;
-    var imageView :UIImageView?;
+    weak var browserTabView : BrowserTabView?
+    var titleFont :UIFont?
+    var titleField :UITextField?
+    var imageView :UIImageView?
     var index :Int?
     private var closeButton:UIButton  = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     // Default initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    convenience init(BrowserTabView abrowserTabView:BrowserTabView) {
-        self.init(frame: CGRectZero);
-        browserTabView = abrowserTabView;
-        normalTitleColor = UIColor.whiteColor();
-        selectedTitleColor = UIColor.blackColor();
-        tabSelectedImage =  UIImage(named:"tab_selected")?.stretchableImageWithLeftCapWidth(30, topCapHeight:0)
-        tabNormalImage = UIImage(named:"tab_normal")?.stretchableImageWithLeftCapWidth(30, topCapHeight:0)
-        titleFont = UIFont.systemFontOfSize(16);
-        imageView = UIImageView(frame: self.bounds);
-        addSubview(imageView!);
-  
-        closeButton.setImage(UIImage(named:"tab_close")?, forState:UIControlState.Normal);
+    convenience init(browserTabView abrowserTabView:BrowserTabView) {
+        self.init(frame: CGRectZero)
+        browserTabView = abrowserTabView
+        titleFont = UIFont.systemFontOfSize(16)
+        imageView = UIImageView(frame: self.bounds)
+        addSubview(imageView!)
+        
+        closeButton.setImage(UIImage(named:"tab_close")?, forState:UIControlState.Normal)
         closeButton.addTarget(self, action: "onCloseTap:", forControlEvents: UIControlEvents.TouchUpInside)
         closeButton.hidden = true
-        addSubview(closeButton);
+        addSubview(closeButton)
         
         
-        titleField = UITextField(frame: self.bounds) as UITextField;
-        titleField?.textAlignment = NSTextAlignment.Center;
-        titleField?.enabled = false;
-        addSubview(titleField!);
+        titleField = UITextField(frame: self.bounds) as UITextField
+        titleField?.textAlignment = NSTextAlignment.Center
+        titleField?.enabled = false
+        addSubview(titleField!)
         
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "handleTap:"))
     }
     
-    func handleTap(gestureRecognizer: UITapGestureRecognizer)
-    {
-      
-//        [browserTabView setSelectedTabIndex:self.index animated:NO];
-        browserTabView?.selectedIndex(TabIndex:self.index!, animated: false)
-    }
-        
-   
-
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -90,34 +71,31 @@ class BrowserTab: UIView {
     var selected: Bool = false{
         didSet {
             if (selected) {
-               
-                 imageView?.image = UIImage(named:"tab_selected")?.stretchableImageWithLeftCapWidth(30, topCapHeight:0);
-                 closeButton.hidden = !(self.browserTabView?.tabArray.count > 1);
-                self.setNeedsLayout()
                 
+                imageView?.image = UIImage(named:"tab_selected")?.stretchableImageWithLeftCapWidth(30, topCapHeight:0)
+                closeButton.hidden = !(self.browserTabView?.tabArray.count > 1)
+ 
             }else{
                 
-                 imageView?.image = UIImage(named:"tab_normal")?.stretchableImageWithLeftCapWidth(30, topCapHeight:0);
-                 closeButton.hidden = true;
+                imageView?.image = UIImage(named:"tab_normal")?.stretchableImageWithLeftCapWidth(30, topCapHeight:0)
+                closeButton.hidden = true
                 
             }
-
+            
         }
     }
     override func layoutSubviews() {
-//        var titleSize :CGSI = titleField?.text.sizeWithFont();
-//        titleSize.width = CGRectGetWidth(self.bounds) - 30;
+        titleField?.frame = self.bounds
+        imageView?.frame = self.bounds
+        closeButton.frame =  CGRectMake(CGRectGetMaxX(self.bounds) - 50, 0, 44, 44)
         
-        titleField?.frame = self.bounds;
-      
-
-         imageView?.frame = self.bounds;
-        
-         closeButton.frame =  CGRectMake(CGRectGetMaxX(self.bounds) - 50, 0, 44, 44);
-
+    }
+    
+    func handleTap(gestureRecognizer: UITapGestureRecognizer)
+    {
+        browserTabView?.selectedIndex(tabIndex:self.index!, animated: false)
     }
     func onCloseTap(sender:UIButton){
-    
-    
+        browserTabView?.removeTabAtIndex(TabAtIndex: self.index!, Animation: true)
     }
-    }
+}
