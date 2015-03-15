@@ -5,7 +5,7 @@
 //  Created by xiaohaibo on 3/11/15.
 //  Copyright (c) 2015 xiaohaibo. All rights reserved.
 //
-//  github:https://github.com/xxhp/BrowserTabView_Swift
+//  github:https://github.com/xxhp/BrowserTabViewDemo_swift
 //  Email:xiao_hb@qq.com
 
 //  Permission is hereby granted, free of charge, to any person
