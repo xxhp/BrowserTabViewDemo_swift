@@ -164,8 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				6586DE301AB470D200A280F2 /* img */,
-				65A4B4741AB037020073211F /* BrowserTabView.swift */,
 				6586DE2E1AB3DAAE00A280F2 /* BrowserTab.swift */,
+				65A4B4741AB037020073211F /* BrowserTabView.swift */,
 			);
 			path = BrowerTabView;
 			sourceTree = "<group>";

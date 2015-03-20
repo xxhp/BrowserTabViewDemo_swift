@@ -37,12 +37,13 @@ import UIKit
 }
 
 let TAB_FOOTER_HEIGHT:CGFloat = 5
-let DEFAULT_TAB_WIDTH:CGFloat = 154
-let defaultFrame:CGRect = CGRectMake(0, 0, 1024, 44)
-let kDefaultTabWidth:CGFloat = 154
+let TAB_WIDTH:CGFloat = 154
+let TAB_VIEW_FRAME:CGRect = CGRectMake(0, 0, 1024, 44)
+let TAB_OVERLAP_WIDTH:CGFloat = 15
+
 class BrowserTabView: UIView {
     weak var delegate:BrowserTabViewDelegate?
-    var tabWidth:CGFloat = kDefaultTabWidth
+    var tabWidth:CGFloat = TAB_WIDTH
     var tabFrameArray = NSMutableArray()
     var backgroundImage:UIImage?
     var tabArray = NSMutableArray()
@@ -53,7 +54,7 @@ class BrowserTabView: UIView {
         backgroundImage = UIImage(named:"tab_background")
     }
     convenience init(titles aTitles: Array<String>, delegate aDelegate:BrowserTabViewDelegate) {
-        self.init(frame:defaultFrame)
+        self.init(frame:TAB_VIEW_FRAME)
         self.delegate = aDelegate
         for (i, title) in enumerate(aTitles) {
             var tab:BrowserTab? = BrowserTab(browserTabView: self)
@@ -68,7 +69,7 @@ class BrowserTabView: UIView {
         caculateFrame()
         
         if (self.tabArray.count>0) {
-            selectedIndex(tabIndex:0, animated:false)
+            selectTab(atIndex:0, animated:false)
         }
         
         
@@ -85,7 +86,7 @@ class BrowserTabView: UIView {
     }
     func caculateFrame(){
         
-        let overlapWidth:CGFloat = 15
+       
         var height:CGFloat = CGRectGetHeight(self.bounds)
         var right:CGFloat = 0
         
@@ -94,13 +95,13 @@ class BrowserTabView: UIView {
         for (var i:Int = 0; i < self.tabArray.count; i++) {
             var tabFrame:CGRect = CGRectMake(right, 0, self.tabWidth, height - TAB_FOOTER_HEIGHT)
             tabFrameArray.addObject(NSValue(CGRect:tabFrame))
-            right += (self.tabWidth - overlapWidth)
+            right += (self.tabWidth - TAB_OVERLAP_WIDTH)
         }
         
         
     }
     
-    func selectedIndex(tabIndex index:Int, animated animation:Bool){
+    func selectTab(atIndex index:Int, animated animation:Bool){
         
         selectedTabIndex = index
         
@@ -159,7 +160,7 @@ class BrowserTabView: UIView {
         }
         
     }
-    func removeTabAtIndex(TabAtIndex index:Int,Animation animation:Bool)
+    func removeTab(atIndex index:Int)
     {
         if (index < 0 || index >= tabArray.count) {
             return
@@ -168,7 +169,7 @@ class BrowserTabView: UIView {
         if (tabArray.count == 1 || tabArray.count <= 0) {
             return
         }
-        if (self.tabWidth < kDefaultTabWidth) {
+        if (self.tabWidth < TAB_WIDTH) {
             self.tabWidth = CGRectGetWidth(self.bounds)/CGFloat(self.tabArray.count - 1)
         }
         
@@ -199,11 +200,11 @@ class BrowserTabView: UIView {
         caculateFrame()
         if(index == self.tabArray.count){
             
-            selectedIndex(tabIndex:newIndex, animated: false)
+            selectTab(atIndex:newIndex, animated: false)
         }
         else{
             
-            selectedIndex(tabIndex:newIndex, animated: true)
+            selectTab(atIndex:newIndex, animated: true)
         }
 
         delegate?.browserTabViewDidRemoveTab?(browserTabView: self, atIndex: index)
@@ -214,7 +215,7 @@ class BrowserTabView: UIView {
         
         //if the new tab is about to be off the tab view's bounds , here simply not adding it
         var title :String  = aTitle
-        if (CGFloat(self.tabArray.count) > CGRectGetWidth(self.bounds) * 1.8/kDefaultTabWidth) {
+        if (CGFloat(self.tabArray.count) > CGRectGetWidth(self.bounds) * 1.8/TAB_WIDTH) {
             return
         }
         if (self.tabWidth * CGFloat(self.tabArray.count + 1) > CGRectGetWidth(self.bounds)) {
@@ -239,7 +240,7 @@ class BrowserTabView: UIView {
         var tabFrame:CGRect = tabFrameValue.CGRectValue()
         tab.frame = tabFrame
         tab.selected = true
-        selectedIndex(tabIndex: selectedTabIndex, animated: false)
+        selectTab(atIndex: selectedTabIndex, animated: false)
     }
     
     

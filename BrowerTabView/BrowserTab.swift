@@ -93,9 +93,9 @@ class BrowserTab: UIView {
     
     func handleTap(gestureRecognizer: UITapGestureRecognizer)
     {
-        browserTabView?.selectedIndex(tabIndex:self.index!, animated: false)
+        browserTabView?.selectTab(atIndex:self.index!, animated: false)
     }
     func onCloseTap(sender:UIButton){
-        browserTabView?.removeTabAtIndex(TabAtIndex: self.index!, Animation: true)
+        browserTabView?.removeTab(atIndex: self.index!)
     }
 }

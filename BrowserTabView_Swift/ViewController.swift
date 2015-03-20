@@ -40,11 +40,11 @@ class ViewController: UIViewController,BrowserTabViewDelegate {
     }
     
     func browserTabViewDidRemoveTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int){
-        println("BrowserTabViewDidRemoveTab at: \(index)");
+        println("BrowserTabView Did Remove Tab at: \(index)");
     }
    
     func browserTabViewDidSelectedTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int){
-        println("BrowserTabViewDidSelectedTab at: \(index)");
+        println("BrowserTabView DidSelected Tab at: \(index)");
         label.text = "Selected Tab at: \(index)";
         
     }
