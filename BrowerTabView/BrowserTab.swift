@@ -38,7 +38,7 @@ class BrowserTab: UIView {
     var titleField :UITextField?
     var imageView :UIImageView?
     var index :Int?
-    private var closeButton:UIButton  = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+    private var closeButton:UIButton  = UIButton(type:UIButtonType.Custom) as UIButton
     // Default initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,7 +50,7 @@ class BrowserTab: UIView {
         imageView = UIImageView(frame: self.bounds)
         addSubview(imageView!)
         
-        closeButton.setImage(UIImage(named:"tab_close")?, forState:UIControlState.Normal)
+        closeButton.setImage(UIImage(named:"tab_close"), forState:UIControlState.Normal)
         closeButton.addTarget(self, action: "onCloseTap:", forControlEvents: UIControlEvents.TouchUpInside)
         closeButton.hidden = true
         addSubview(closeButton)

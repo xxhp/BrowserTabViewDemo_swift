@@ -18,8 +18,8 @@ class ViewController: UIViewController,BrowserTabViewDelegate {
         label.textColor = UIColor.whiteColor();
         tabController = BrowserTabView(titles:["Tab 1","Tab 2","Tab 3","Tab 4","Tab 5"] , delegate:self);
         self.view.addSubview(tabController!);
-        var addButton :UIButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        addButton.setImage(UIImage(named:"tab_new_add.png")?, forState:UIControlState.Normal);
+        let addButton :UIButton = UIButton(type:UIButtonType.Custom) as UIButton
+        addButton.setImage(UIImage(named:"tab_new_add.png"), forState:UIControlState.Normal);
         addButton.addTarget(self, action: "add:", forControlEvents: UIControlEvents.TouchUpInside)
         addButton.frame = CGRectMake(1024-40, 5, 27 , 27);
         self.view.addSubview(addButton);
@@ -40,11 +40,11 @@ class ViewController: UIViewController,BrowserTabViewDelegate {
     }
     
     func browserTabViewDidRemoveTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int){
-        println("BrowserTabView Did Remove Tab at: \(index)");
+        print("BrowserTabView Did Remove Tab at: \(index)");
     }
    
     func browserTabViewDidSelectedTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int){
-        println("BrowserTabView DidSelected Tab at: \(index)");
+        print("BrowserTabView DidSelected Tab at: \(index)");
         label.text = "Selected Tab at: \(index)";
         
     }
