@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		656DC19A1C0F26C300983639 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 656DC1991C0F26C300983639 /* LICENSE */; };
 		6586DE2F1AB3DAAE00A280F2 /* BrowserTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6586DE2E1AB3DAAE00A280F2 /* BrowserTab.swift */; };
 		6586DE391AB470D200A280F2 /* tab_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 6586DE311AB470D200A280F2 /* tab_background.png */; };
 		6586DE3A1AB470D200A280F2 /* tab_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6586DE321AB470D200A280F2 /* tab_background@2x.png */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		656DC1991C0F26C300983639 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6586DE2E1AB3DAAE00A280F2 /* BrowserTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserTab.swift; sourceTree = "<group>"; };
 		6586DE311AB470D200A280F2 /* tab_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_background.png; sourceTree = "<group>"; };
 		6586DE321AB470D200A280F2 /* tab_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_background@2x.png"; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				65C20A851AB552C900839753 /* iOSScreenShot.png */,
+				656DC1991C0F26C300983639 /* LICENSE */,
 				6586DE411AB4856A00A280F2 /* README.md */,
 				65A4B4731AB036DF0073211F /* BrowerTabView */,
 				65A4B4501AB036920073211F /* BrowserTabView_Swift */,
@@ -260,6 +263,7 @@
 				65C20A831AB5466200839753 /* tab_new_add.png in Resources */,
 				65C20A841AB5466200839753 /* tab_new_add@2x.png in Resources */,
 				65A4B45E1AB036920073211F /* LaunchScreen.xib in Resources */,
+				656DC19A1C0F26C300983639 /* LICENSE in Resources */,
 				6586DE3E1AB470D200A280F2 /* tab_normal@2x.png in Resources */,
 				65A4B45B1AB036920073211F /* Images.xcassets in Resources */,
 				65C20A861AB552C900839753 /* iOSScreenShot.png in Resources */,
