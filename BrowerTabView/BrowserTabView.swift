@@ -31,14 +31,13 @@
 
 import UIKit
 @objc  protocol BrowserTabViewDelegate : NSObjectProtocol {
-    optional func browserTabViewDidRemoveTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int)
-    optional func browserTabViewDidSelectedTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int)
+    @objc optional func browserTabViewDidRemoveTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int)
+    @objc optional func browserTabViewDidSelectedTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int)
     
 }
-
 let TAB_FOOTER_HEIGHT:CGFloat = 5
 let TAB_WIDTH:CGFloat = 154
-let TAB_VIEW_FRAME:CGRect = CGRectMake(0, 0, 1024, 44)
+let TAB_VIEW_FRAME:CGRect = CGRect(x: 0, y: 0, width: 1024, height: 44)
 let TAB_OVERLAP_WIDTH:CGFloat = 15
 
 class BrowserTabView: UIView {
@@ -56,16 +55,15 @@ class BrowserTabView: UIView {
     convenience init(titles aTitles: Array<String>, delegate aDelegate:BrowserTabViewDelegate) {
         self.init(frame:TAB_VIEW_FRAME)
         self.delegate = aDelegate
-        for (i, title) in aTitles.enumerate(){
+        for (i, title) in aTitles.enumerated(){
             let tab:BrowserTab? = BrowserTab(browserTabView: self)
             
             tab?.titleField?.text = title
             tab?.index = i
-            self.tabArray.addObject(tab!)
+            self.tabArray.add(tab!)
         }
         
         self.tabWidth = self.bounds.size.width/CGFloat(self.tabArray.count+1)
-       
         caculateFrame()
         
         if (self.tabArray.count>0) {
@@ -74,12 +72,12 @@ class BrowserTabView: UIView {
         
         
     }
-    override func drawRect(rect:CGRect) {
+    override func draw(_ rect:CGRect) {
         let height : CGFloat = self.bounds.size.height
         
         //left 5 dp to show the background, and give a look that tab has footer
         
-        backgroundImage?.drawAsPatternInRect(CGRectMake(0, 0, self.frame.size.width, height - TAB_FOOTER_HEIGHT))
+        backgroundImage?.drawAsPattern(in: CGRect(x: 0, y: 0, width: self.frame.size.width, height: height - TAB_FOOTER_HEIGHT))
     }
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -87,14 +85,14 @@ class BrowserTabView: UIView {
     func caculateFrame(){
         
        
-        let height:CGFloat = CGRectGetHeight(self.bounds)
+        let height:CGFloat = self.bounds.height
         var right:CGFloat = 0
         
         tabFrameArray.removeAllObjects()
         
-        for (var i:Int = 0; i < self.tabArray.count; i++) {
-            let tabFrame:CGRect = CGRectMake(right, 0, self.tabWidth, height - TAB_FOOTER_HEIGHT)
-            tabFrameArray.addObject(NSValue(CGRect:tabFrame))
+        for _ in stride(from: 0, to: self.tabArray.count, by: 1) {
+            let tabFrame:CGRect = CGRect(x: right, y: 0, width: self.tabWidth, height: height - TAB_FOOTER_HEIGHT)
+            tabFrameArray.add(NSValue(cgRect:tabFrame))
             right += (self.tabWidth - TAB_OVERLAP_WIDTH)
         }
         
@@ -107,14 +105,14 @@ class BrowserTabView: UIView {
         
         delegate?.browserTabViewDidSelectedTab?(browserTabView: self, atIndex: index)
         //tabs before the selected are added in a sequence from the first to the selected
-        for (var i : Int = 0; i < selectedTabIndex;i++) {
+         for  i in stride(from: 0, to: selectedTabIndex, by: 1) {
             
             let tabFrameValue:NSValue = tabFrameArray[i] as! NSValue
-            let tabFrame:CGRect = tabFrameValue.CGRectValue()
+            let tabFrame:CGRect = tabFrameValue.cgRectValue
             let tab :BrowserTab = tabArray[i] as! BrowserTab
             if (animation) {
                 
-                UIView.animateWithDuration(0.15, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: {
                     tab.frame = tabFrame
                     tab.browserTabView = self
                     tab.selected = false
@@ -132,7 +130,7 @@ class BrowserTabView: UIView {
         }
         
         //tabs after the selected are added in a sequence from the last to the selected
-        for (var i : Int = tabArray.count - 1; i >= selectedTabIndex; i--) {
+        for i in stride(from: tabArray.count - 1, to: selectedTabIndex-1, by: -1)  {
             let tab :BrowserTab = tabArray[i] as! BrowserTab
             if (self.selectedTabIndex == i) {
                 tab.selected = true
@@ -140,10 +138,10 @@ class BrowserTabView: UIView {
                 tab.selected = false
             }
             let tabFrameValue:NSValue = tabFrameArray[i] as! NSValue
-            let tabFrame:CGRect = tabFrameValue.CGRectValue()
+            let tabFrame:CGRect = tabFrameValue.cgRectValue
             if (animation) {
                 
-                UIView.animateWithDuration(0.15, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: {
                     tab.frame = tabFrame
                     tab.browserTabView = self
                     
@@ -170,7 +168,7 @@ class BrowserTabView: UIView {
             return
         }
         if (self.tabWidth < TAB_WIDTH) {
-            self.tabWidth = CGRectGetWidth(self.bounds)/CGFloat(self.tabArray.count - 1)
+            self.tabWidth = self.bounds.width/CGFloat(self.tabArray.count - 1)
         }
         
         let tab :BrowserTab = tabArray[index] as! BrowserTab
@@ -183,18 +181,17 @@ class BrowserTabView: UIView {
             newIndex = index - 1
         }
         
-        
-        tabArray.removeObject(tab)
+        tabArray.remove(tab)
         tab.removeFromSuperview()
         
         
         tabWidth = self.bounds.size.width/CGFloat(self.tabArray.count+1)
         var tabIndex :Int = 0
         
-        for (index, _) in tabArray.enumerate() {
+        for (index, _) in tabArray.enumerated() {
             let tempTab:BrowserTab = tabArray[index] as! BrowserTab
             tempTab.index = tabIndex
-            tabIndex++
+            tabIndex += 1
         }
         
         caculateFrame()
@@ -215,11 +212,11 @@ class BrowserTabView: UIView {
         
         //if the new tab is about to be off the tab view's bounds , here simply not adding it
         var title :String  = aTitle
-        if (CGFloat(self.tabArray.count) > CGRectGetWidth(self.bounds) * 1.8/TAB_WIDTH) {
+        if (CGFloat(self.tabArray.count) > self.bounds.width * 1.8/TAB_WIDTH) {
             return
         }
-        if (self.tabWidth * CGFloat(self.tabArray.count + 1) > CGRectGetWidth(self.bounds)) {
-            self.tabWidth = CGRectGetWidth(self.bounds)/CGFloat(self.tabArray.count + 1)
+        if (self.tabWidth * CGFloat(self.tabArray.count + 1) > self.bounds.width) {
+            self.tabWidth = self.bounds.width/CGFloat(self.tabArray.count + 1)
         }
         
         if (title.isEmpty) {
@@ -227,9 +224,9 @@ class BrowserTabView: UIView {
         }
         let tab:BrowserTab = BrowserTab(browserTabView: self)
         tab.titleField?.text = title
-        tabArray.addObject(tab)
+        tabArray.add(tab)
         
-        for (index, _) in tabArray.enumerate() {
+        for (index, _) in tabArray.enumerated() {
             let tempTab:BrowserTab = tabArray[index] as! BrowserTab
             tempTab.index = index
             
@@ -237,7 +234,7 @@ class BrowserTabView: UIView {
         caculateFrame()
         selectedTabIndex =  self.tabArray.count - 1
         let tabFrameValue:NSValue = tabFrameArray.lastObject as! NSValue
-        let tabFrame:CGRect = tabFrameValue.CGRectValue()
+        let tabFrame:CGRect = tabFrameValue.cgRectValue
         tab.frame = tabFrame
         tab.selected = true
         selectTab(atIndex: selectedTabIndex, animated: false)

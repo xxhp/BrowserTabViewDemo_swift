@@ -38,30 +38,30 @@ class BrowserTab: UIView {
     var titleField :UITextField?
     var imageView :UIImageView?
     var index :Int?
-    private var closeButton:UIButton  = UIButton(type:UIButtonType.Custom) as UIButton
+    fileprivate var closeButton:UIButton  = UIButton(type:UIButtonType.custom) as UIButton
     // Default initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     convenience init(browserTabView abrowserTabView:BrowserTabView) {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
         browserTabView = abrowserTabView
-        titleFont = UIFont.systemFontOfSize(16)
+        titleFont = UIFont.systemFont(ofSize: 16)
         imageView = UIImageView(frame: self.bounds)
         addSubview(imageView!)
         
-        closeButton.setImage(UIImage(named:"tab_close"), forState:UIControlState.Normal)
-        closeButton.addTarget(self, action: "onCloseTap:", forControlEvents: UIControlEvents.TouchUpInside)
-        closeButton.hidden = true
+        closeButton.setImage(UIImage(named:"tab_close"), for:UIControlState())
+        closeButton.addTarget(self, action: #selector(BrowserTab.onCloseTap(_:)), for: UIControlEvents.touchUpInside)
+        closeButton.isHidden = true
         addSubview(closeButton)
         
         
         titleField = UITextField(frame: self.bounds) as UITextField
-        titleField?.textAlignment = NSTextAlignment.Center
-        titleField?.enabled = false
+        titleField?.textAlignment = NSTextAlignment.center
+        titleField?.isEnabled = false
         addSubview(titleField!)
         
-        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "handleTap:"))
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BrowserTab.handleTap(_:))))
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -72,13 +72,13 @@ class BrowserTab: UIView {
         didSet {
             if (selected) {
                 
-                imageView?.image = UIImage(named:"tab_selected")?.stretchableImageWithLeftCapWidth(30, topCapHeight:0)
-                closeButton.hidden = !(self.browserTabView?.tabArray.count > 1)
+                imageView?.image = UIImage(named:"tab_selected")?.stretchableImage(withLeftCapWidth: 30, topCapHeight:0)
+                closeButton.isHidden = !((self.browserTabView?.tabArray.count)! > 1)
  
             }else{
                 
-                imageView?.image = UIImage(named:"tab_normal")?.stretchableImageWithLeftCapWidth(30, topCapHeight:0)
-                closeButton.hidden = true
+                imageView?.image = UIImage(named:"tab_normal")?.stretchableImage(withLeftCapWidth: 30, topCapHeight:0)
+                closeButton.isHidden = true
                 
             }
             
@@ -87,15 +87,15 @@ class BrowserTab: UIView {
     override func layoutSubviews() {
         titleField?.frame = self.bounds
         imageView?.frame = self.bounds
-        closeButton.frame =  CGRectMake(CGRectGetMaxX(self.bounds) - 50, 0, 44, 44)
+        closeButton.frame =  CGRect(x: self.bounds.maxX - 50, y: 0, width: 44, height: 44)
         
     }
     
-    func handleTap(gestureRecognizer: UITapGestureRecognizer)
+    func handleTap(_ gestureRecognizer: UITapGestureRecognizer)
     {
         browserTabView?.selectTab(atIndex:self.index!, animated: false)
     }
-    func onCloseTap(sender:UIButton){
+    func onCloseTap(_ sender:UIButton){
         browserTabView?.removeTab(atIndex: self.index!)
     }
 }
