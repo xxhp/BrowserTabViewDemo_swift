@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,BrowserTabViewDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet weak var label: UILabel!
     var tabController :BrowserTabView?
@@ -38,14 +38,21 @@ class ViewController: UIViewController,BrowserTabViewDelegate {
     func add(_ sender:UIButton){
         tabController?.addTab(title: "new Tab")
     }
+    
+}
+
+extension ViewController:BrowserTabViewDelegate{
+
+
     func browserTabViewDidRemoveTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int){
         print("BrowserTabView Did Remove Tab at: \(index)");
     }
-   
+    
     func browserTabViewDidSelectedTab(browserTabView abrowserTabView:BrowserTabView,atIndex index :Int){
         print("BrowserTabView DidSelected Tab at: \(index)");
         label.text = "Selected Tab at: \(index)";
         
     }
+
 }
 
